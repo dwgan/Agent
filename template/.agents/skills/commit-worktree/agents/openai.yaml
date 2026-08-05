@@ -1,0 +1,4 @@
+interface:
+  display_name: "提交当前工作区"
+  short_description: "检查当前工作目录的改动并安全创建一个本地 Git 提交"
+  default_prompt: "使用 $commit-worktree 检查并提交当前工作目录中的安全变更。"

@@ -1,6 +1,6 @@
 # 项目交接说明
 
-更新时间：2026-08-02
+更新时间：2026-08-04
 
 ## 1. 项目目标
 
@@ -120,6 +120,30 @@ Markdown 是后续维护的源文件。交接记录曾说明还保留了同名 P
 
 文档明确区分了 OpenAI 官方建议和本项目针对嵌入式硬件增加的安全边界。
 
+### 2.7 完成了可复制的新项目多 Agent 模板
+
+已经新增：
+
+- `template/AGENTS.md`
+- `template/.gitattributes`
+- `template/.codex/config.toml`
+- `template/.codex/agents/architect.toml`
+- `template/.codex/agents/coder.toml`
+- `template/.codex/agents/reviewer.toml`
+- `template/.agents/skills/README.md`
+- `template/.agents/skills/commit-worktree/SKILL.md`
+- `template/.agents/skills/commit-worktree/agents/openai.yaml`
+
+模板遵循 2026-08-03 核对的 Codex 官方项目级目录约定：项目专用角色放在仓库根目录的 `.codex/agents/`，项目级 Skills 放在 `.agents/skills/`。三个角色没有固定模型名称，以便继承用户当前可用模型；架构和审查角色默认只读，实现角色默认允许工作区写入。运行时沙箱仍可能受主会话权限覆盖，因此安全边界同时写入了 `AGENTS.md` 和角色指令，不能只依赖配置文件。
+
+`template/.agents/skills/README.md` 用于说明项目级 Skills 的用途。除了模板自带的提交 Skill，新项目不需要立即创建更多 Skill；只有稳定重复的流程才应继续封装。
+
+模板现已包含 `commit-worktree` Skill。调用后，它会检查当前 Git 工作目录的范围、差异、敏感信息和项目验证，生成合适的提交说明并创建本地提交。它默认不执行 push、amend 或跳过 Git hooks；遇到范围外的既有暂存、冲突状态、疑似秘密或测试失败时会停止并报告。
+
+2026-08-04 已补充提交信息规则。Codex 官方没有强制统一的 commit message 语法，官方原则是把团队工程规范和 PR 期望写入 `AGENTS.md`，并在提交前测试和审查差异。因此模板先服从用户要求、项目规范和近期提交历史；没有可用约定时，才回退到 Conventional Commits 的 `<type>(<scope>): <description>` 格式。破坏性变更必须标记，复杂提交可记录正文和实际测试结果。
+
+同日针对 IAR 生成的 CRLF 工程文件补充了换行处理：`template/.gitattributes` 使用 `* text=auto` 自动识别文本并在 Git 仓库中规范化为 LF；工作区仍可由开发工具使用 LF 或 CRLF。`commit-worktree` 的空白检查显式启用 `cr-at-eol`，因此不会把 CRLF 中的 `CR` 误报为行尾空白，但仍会阻止真正的尾随空格、Tab 和空白文件尾。模板禁止为了换行检查批量重写无关文件。
+
 ## 3. 已确认的推荐工作流
 
 完整流程是：
@@ -229,13 +253,15 @@ AI 阅读资料并复述理解
 
 ## 7. 下一步建议
 
-下一项工作仍是在一个真实或示例嵌入式项目中试用快速启动包，重点检查：
+下一项工作是在一个真实或示例嵌入式项目中试用 `template/`，重点检查：
 
-1. 复制最小 `AGENTS.md` 后是否无需额外配置即可完成项目摸底。
+1. 复制模板后，仅填写项目概况是否就能由 `architect` 完成项目摸底。
 2. 项目接管结果是否能准确区分事实、假设、未知项和资料冲突。
-3. 轻量模式是否能在不频繁确认的情况下完成局部安全修改。
-4. 复杂或高风险任务是否能正确停在计划阶段。
-5. 提示词是否仍有可以删除的重复内容。
+3. `coder` 是否严格遵守已确认的文件范围和验收标准。
+4. `reviewer` 是否保持独立、只报告问题且不直接修改代码。
+5. 复杂或高风险任务是否能正确停在工程师确认点。
+6. 模板规则是否仍有可以删除的重复内容。
+7. `$commit-worktree` 是否能在不混入范围外文件的情况下完成本地提交。
 
 复核通过后，可选择下一阶段：
 
@@ -286,6 +312,7 @@ AI 阅读资料并复述理解
 - [ ] 初学者主文档已存在
 - [ ] OpenAI 官方推荐用法汇总文档已存在
 - [ ] 快速启动文档和最小 `AGENTS.md` 模板已存在
+- [ ] `template/` 中的新项目多 Agent 模板已存在
 - [ ] 工作流 Markdown 已存在
 - [ ] 工作流 PDF 的迁移或云同步状态已人工确认
 - [ ] 新电脑能够正常打开中文文件名

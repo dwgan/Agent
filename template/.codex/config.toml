@@ -1,0 +1,6 @@
+# 项目级 Codex 配置。将整个 template 目录中的内容复制到新项目根目录后生效。
+
+[agents]
+enabled = true
+# 三个专用角色足以覆盖多数嵌入式任务；具体任务仍建议按依赖关系顺序执行。
+max_concurrent_threads_per_session = 3
