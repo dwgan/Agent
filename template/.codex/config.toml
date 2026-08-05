@@ -3,4 +3,16 @@
 [agents]
 enabled = true
 # 三个专用角色足以覆盖多数嵌入式任务；具体任务仍建议按依赖关系顺序执行。
-max_concurrent_threads_per_session = 3
+
+[agents.architect]
+config_file = "agents/architect.toml"
+
+[agents.coder]
+config_file = "agents/coder.toml"
+
+[agents.reviewer]
+config_file = "agents/reviewer.toml"
+
+[agents.observer]
+config_file = "agents/observer.toml"
+

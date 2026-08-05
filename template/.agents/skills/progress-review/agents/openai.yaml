@@ -1,0 +1,4 @@
+interface:
+  display_name: "进度俯视总结"
+  short_description: "用通俗语言总结当前进度和关键决策的物理原因，帮助工程师保持俯视视角。"
+  default_prompt: "使用 $progress-review 生成当前进度的俯视总结，解释正在解决的问题和背后的物理原因。"

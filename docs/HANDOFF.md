@@ -1,6 +1,6 @@
 # 项目交接说明
 
-更新时间：2026-08-04
+更新时间：2026-08-05
 
 ## 1. 项目目标
 
@@ -144,6 +144,16 @@ Markdown 是后续维护的源文件。交接记录曾说明还保留了同名 P
 
 同日针对 IAR 生成的 CRLF 工程文件补充了换行处理：`template/.gitattributes` 使用 `* text=auto` 自动识别文本并在 Git 仓库中规范化为 LF；工作区仍可由开发工具使用 LF 或 CRLF。`commit-worktree` 的空白检查显式启用 `cr-at-eol`，因此不会把 CRLF 中的 `CR` 误报为行尾空白，但仍会阻止真正的尾随空格、Tab 和空白文件尾。模板禁止为了换行检查批量重写无关文件。
 
+### 2.8 新增"进度俯视与讲解"机制
+
+2026-08-05 针对"工程师跟不上 AI 进度、不理解关键决策物理原因"的场景，在 `template/` 中新增：
+
+- `template/.agents/skills/progress-review/SKILL.md`
+- `template/.agents/skills/progress-review/agents/openai.yaml`
+- `template/.codex/agents/observer.toml`
+
+`progress-review` Skill 固定俯视总结的输出格式：当前阶段目标、已完成、正在解决的问题、关键决策及物理/协议原因（标注依据或推断）、事实/假设/未知、待工程师确认点、下一步。`observer` 是只读讲解角色，适合工程师需要独立第二视角时按需调用，成本高于 Skill。该机制只读、不碰硬件；真实项目中的效果仍待试用验证。
+
 ## 3. 已确认的推荐工作流
 
 完整流程是：
@@ -267,6 +277,8 @@ AI 阅读资料并复述理解
 
 - 根据真实项目反馈精简启动包；或
 - 当启动流程已稳定重复使用时，再封装为 Codex Skill。
+
+2026-08-05 已把"进度俯视与讲解"机制加入 `template/`：`progress-review` Skill 和 `observer` Agent（详见 2.8）。下一步是在真实工程中试用：先只加三条 `AGENTS.md` 规则（阶段结束先输出俯视总结、关键决策解释物理原因并标注依据、git 提交建立检查点），仍跟不上时再调用 Skill 或 Agent，并对比成本与效果。
 
 不要自动重新生成现有 PDF；只有用户明确要求时再导出新版。
 
