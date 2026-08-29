@@ -296,6 +296,16 @@ AI 阅读资料并复述理解
 
 真实 Windows 环境已经验证 Bridge、Gateway、单窗口连接和只读 PCB API 链路。仓库内脚本仍应在复制到其它电脑后进行一次目标机验收；Gateway GUI 导入和“允许外部交互”授权可能需要人工完成。
 
+### 7.2 嘉立创EDA日常设计入口 Skill
+
+2026-08-30 新增 `template/.agents/skills/easyeda-pcb-design/`。该 Skill 是日常设计入口：连接当前嘉立创EDA工程、先只读盘点、确认修改范围，然后调用官方 `easyeda-api` 完成原理图、PCB、覆铜、DRC、拼板和生产检查。环境安装、升级和连接故障仍由 `easyeda-environment-setup` 负责。
+
+推荐调用方式：
+
+```text
+$easyeda-pcb-design 连接我当前打开的嘉立创EDA工程，先只读检查，然后帮我完成……
+```
+
 ## 8. 新电脑上的恢复步骤
 
 1. 将整个 `Agent` 文件夹复制到新电脑。

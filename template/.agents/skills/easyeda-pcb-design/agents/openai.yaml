@@ -1,0 +1,7 @@
+interface:
+  display_name: "嘉立创EDA PCB 设计"
+  short_description: "连接嘉立创EDA并安全完成原理图与PCB设计"
+  default_prompt: "Use $easyeda-pcb-design to connect to my current 嘉立创EDA project, inspect it first, and then complete the PCB design task I describe."
+
+policy:
+  allow_implicit_invocation: true
