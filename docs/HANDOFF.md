@@ -1,6 +1,6 @@
 # 项目交接说明
 
-更新时间：2026-08-05
+更新时间：2026-08-29
 
 ## 1. 项目目标
 
@@ -281,6 +281,20 @@ AI 阅读资料并复述理解
 2026-08-05 已把"进度俯视与讲解"机制加入 `template/`：`progress-review` Skill 和 `observer` Agent（详见 2.8）。下一步是在真实工程中试用：先只加三条 `AGENTS.md` 规则（阶段结束先输出俯视总结、关键决策解释物理原因并标注依据、git 提交建立检查点），仍跟不上时再调用 Skill 或 Agent，并对比成本与效果。
 
 不要自动重新生成现有 PDF；只有用户明确要求时再导出新版。
+
+### 7.1 嘉立创EDA自动化环境模板
+
+2026-08-29 新增 `template/.agents/skills/easyeda-environment-setup/`，用于在 Windows 上安装、启动、验证和排查 Codex 与嘉立创EDA之间的官方 `easyeda-api`、Bridge 和 Run API Gateway。该 Skill 只管理环境生命周期，不复制或修改 EasyEDA 官方 Skill，也不承担日常 PCB/原理图操作。
+
+配套内容包括：
+
+- `scripts/Install-EasyEDAEnvironment.ps1`：核验官方仓库、安装依赖并准备最新版 Gateway。
+- `scripts/Start-EasyEDABridge.ps1`：复用或后台启动仅监听本机的 Bridge。
+- `scripts/Test-EasyEDAConnection.ps1`：验证健康状态、EDA 窗口和当前工程/文档只读 API。
+- `references/deployment.md` 与 `references/troubleshooting.md`：按需加载的部署与故障排查说明。
+- `docs/easyeda/`：面向工程师的入口和可直接交给 Codex 的部署提示词。
+
+真实 Windows 环境已经验证 Bridge、Gateway、单窗口连接和只读 PCB API 链路。仓库内脚本仍应在复制到其它电脑后进行一次目标机验收；Gateway GUI 导入和“允许外部交互”授权可能需要人工完成。
 
 ## 8. 新电脑上的恢复步骤
 

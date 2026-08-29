@@ -32,6 +32,7 @@
 - [嵌入式项目 AGENTS.md 最小模板](docs/嵌入式项目AGENTS最小模板.md)：新项目的通用安全规则
 - [嵌入式工程师使用 Codex 的分阶段开发工作流](docs/嵌入式工程师使用Codex的分阶段开发工作流.md)：工程流程的深入说明
 - [新项目多 Agent 模板](template/AGENTS.md)：包含项目规则、自动换行规范化、Codex 配置、architect/coder/reviewer 角色，以及安全提交当前工作目录的 `commit-worktree` Skill
+- [嘉立创EDA与 Codex 自动化](docs/easyeda/README.md)：提供轻量部署 Skill、Windows 启动与验收脚本，以及可直接交给 Codex 的自动部署指南
 
 下一步计划是把 `template/` 中的内容复制到一个真实项目根目录，填写项目事实并试用 architect → coder → reviewer 流程，再根据反馈精简规则。
 

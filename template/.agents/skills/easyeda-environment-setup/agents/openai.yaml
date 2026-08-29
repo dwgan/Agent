@@ -1,0 +1,4 @@
+interface:
+  display_name: "嘉立创EDA环境部署"
+  short_description: "安装、启动、验证和排查 Codex 与嘉立创EDA的本机 Bridge/Gateway 环境。"
+  default_prompt: "使用 $easyeda-environment-setup 在 Windows 上部署或检查 Codex + 嘉立创EDA自动化环境，并只做只读验收。"
